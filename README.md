@@ -1,7 +1,7 @@
 # MultiSoundGen
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2509.19999"><img src="https://img.shields.io/badge/arXiv-2509.19999-b31b1b.svg" alt="arXiv"/></a>&nbsp;<a href="https://v2aresearch.github.io/MultiSoundGen/"><img src="https://img.shields.io/badge/Demo Page-🌐-blue" alt="Demo"/></a>
+  <a href="https://arxiv.org/abs/2509.19999"><img src="https://img.shields.io/badge/arXiv-2509.19999-b31b1b.svg" alt="arXiv"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://v2aresearch.github.io/MultiSoundGen/"><img src="https://img.shields.io/badge/Demo Page-🌐-blue" alt="Demo"/></a>
   <br>
   <strong>MultiSoundGen</strong>: a novel V2A framework for multi-event scenarios
 </p>
@@ -19,7 +19,7 @@
 ---
 
 ## 📰 News
-- **Coming Soon** &nbsp; 📝 All source codes, models and datasets will be publicly available upon publication of the paper.
+- **Coming Soon** &nbsp; 📝 All source codes, models and datasets will be released upon publication of the paper.
 - **2025.10** &nbsp; 🔥[Demo page](https://v2aresearch.github.io/MultiSoundGen/) covering various scenarios is now online!
 - **2025.09** &nbsp; 🔥[MultiSoundGen paper](https://arxiv.org/abs/2509.19999) released on arXiv!
 
@@ -54,6 +54,19 @@ If you find MultiSoundGen useful in your research or work, please cite our paper
 Yang, J.; Yang, X.; Zhang, L.; Guo, X.; Wang, Z.and Huang, G. 2025. MultiSoundGen: Video-to-Audio Generation for Multi-Event Scenarios via SlowFast Contrastive Audio-Visual Pretraining and Direct Preference Optimization. arXiv preprint arXiv:2509.19999.
 
 ```
+
+## 🙏 Acknowledgements
+
+We would like to express our gratitude to all contributors and supporters of this project. Special thanks to the open-source community for providing valuable tools and frameworks that facilitated the development of MultiSoundGen. We also appreciate the feedback from reviewers and colleagues which helped improve this work.
+
+---
+
+## ⭐ Support Us
+
+If you find our research interesting or useful, please consider ⭐ this repository. Your support is our greatest motivation!
+
+---
+
 ## 📬 Contact
 
 If you have any questions, suggestions, or would like to collaborate, please feel free to reach out to us:
