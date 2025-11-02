@@ -6,29 +6,289 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MultiSoundGen - V2A Demo</title>
   <link rel="stylesheet" href="style.css">
+  <!-- 引入Font Awesome（包含GitHub图标） -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* 图标样式 - 默认黑色，悬停变色 */
+    .arxiv-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='%23333' d='M62.258 8.006a22.22 22.22 0 0 0-20.929 13.448c-3.404 8.169-.96 13.898 6.506 24.59c10.935 16.09 122.178 149.673 122.178 149.673l-24.619 23.038c-20.74 20.735-21.632 48.566-2.34 67.852l28.663 27.3l-79.976 98.235c-6.21 6.614-10.053 18.221-6.585 26.552a22.7 22.7 0 0 0 21.21 14.06a20.23 20.23 0 0 0 15.249-7.536l95.122-88.437L363.33 496.39a27.14 27.14 0 0 0 18.418 7.61a25.3 25.3 0 0 0 7.335-1.108a27.66 27.66 0 0 0 18.4-18.99a25.6 25.6 0 0 0-6.481-23.69L272.219 305.195l23.062-21.443c17.198-15.504 17.29-42.455.197-58.076l-25.257-24.228L357.417 98.46l.115-.133l.103-.14c7.793-10.123 11.52-17.92 7.502-27.806a36.17 36.17 0 0 0-23.647-18.37a24 24 0 0 0-3.166-.212l-.006.018a28.52 28.52 0 0 0-18.252 8.123l-.203.166l-.19.173L218.6 151.925L79.261 18.253S70.995 8.213 62.258 8.006m276.06 51.214q1.115.004 2.22.148a29.3 29.3 0 0 1 17.719 13.81c2.246 5.523 1.554 10.01-6.506 20.484L264.861 196.3l-40.882-39.22l100.68-91.304a21.77 21.77 0 0 1 13.66-6.536zM175.077 201.127L395.19 464.872c4.32 5.408 7.02 10.818 5.18 16.914a20.25 20.25 0 0 1-13.463 14.037a17.6 17.6 0 0 1-5.17.784a19.8 19.8 0 0 1-13.293-5.56l-220.15-209.694c-17.317-17.316-14.698-40.33 2.158-57.186z'/%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      vertical-align: middle;
+      margin-right: 5px;
+      transition: background-image 0.3s;
+    }
+
+    .huggingface-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378c0 1.112.178 2.181.503 3.185c.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284c.278.173.48.408.71.694c.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542c.01.026.653 1.552 1.657 2.54c.616.605 1.01 1.223 1.082 1.912c.055.537-.096 1.059-.38 1.572c.637.121 1.294.187 1.967.187c.657 0 1.298-.063 1.921-.178c-.287-.517-.44-1.041-.384-1.581c.07-.69.465-1.307 1.081-1.913c1.004-.987 1.647-2.513 1.657-2.539c.021-.074.083-.285.233-.542c.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952c.23-.286.432-.52.71-.694c.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174a1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094c-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71c-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013a1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921a.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92a.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164c1.607-.007 2.984-1.155 3.572-1.164c.196-.003.305.12.305.454c0 .886-.424 2.328-1.563 3.202c-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026l-.01.008l-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116a1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243a1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444c-.034-.016-.104-.008-.2.022q-.094.03-.216.087q-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096a3 3 0 0 0-.26.219a2 2 0 0 0-.12.121a2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203c0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194c-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858s-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64c-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647s2.822 2.813 2.562 3.244s-1.176-.506-1.176-.506s-2.866-2.567-3.49-1.898s.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405c-.238.839-2.71-1.587-3.216-.642c-.506.946 3.49 2.056 3.522 2.064c1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194c1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858s.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64c.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647s-2.822 2.813-2.562 3.244s1.176-.506 1.176-.506s2.866-2.567 3.49-1.898s-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405c.238.839 2.71-1.587 3.216-.642c.506.946-3.49 2.056-3.522 2.064c-1.29.33-4.568 1.028-5.713-.624'/%3E%3C/svg%3E") no-repeat center;
+      background-size: contain;
+      vertical-align: middle;
+      margin-right: 5px;
+      transition: background-image 0.3s;
+    }
+
+    /* 标题及作者区域样式 */
+    .header-section {
+      text-align: center;
+      padding: 3rem 1rem;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    .header-section h1 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+      color: #2c3e50;
+    }
+
+    .author-list {
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .author-list sup {
+      font-size: 0.7rem;
+      vertical-align: super;
+      margin-left: 2px;
+    }
+
+    .affiliations {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 0.5rem;
+      line-height: 1.6;
+    }
+
+    .affiliations sup {
+      font-size: 0.7rem;
+      vertical-align: super;
+    }
+
+    .contribution-note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    /* 按钮组样式 */
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.4rem;
+      color: #333;
+      background-color: #f0f0f0;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .btn i {
+      color: #333;
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* 按钮悬停颜色 */
+    .btn.github:hover {
+      background-color: #1877F2;
+      color: white;
+    }
+
+    .btn.github:hover i {
+      color: white;
+    }
+
+    .btn.arxiv:hover {
+      background-color: #D72B2B;
+      color: white;
+    }
+
+    .btn.arxiv:hover .arxiv-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='white' d='M62.258 8.006a22.22 22.22 0 0 0-20.929 13.448c-3.404 8.169-.96 13.898 6.506 24.59c10.935 16.09 122.178 149.673 122.178 149.673l-24.619 23.038c-20.74 20.735-21.632 48.566-2.34 67.852l28.663 27.3l-79.976 98.235c-6.21 6.614-10.053 18.221-6.585 26.552a22.7 22.7 0 0 0 21.21 14.06a20.23 20.23 0 0 0 15.249-7.536l95.122-88.437L363.33 496.39a27.14 27.14 0 0 0 18.418 7.61a25.3 25.3 0 0 0 7.335-1.108a27.66 27.66 0 0 0 18.4-18.99a25.6 25.6 0 0 0-6.481-23.69L272.219 305.195l23.062-21.443c17.198-15.504 17.29-42.455.197-58.076l-25.257-24.228L357.417 98.46l.115-.133l.103-.14c7.793-10.123 11.52-17.92 7.502-27.806a36.17 36.17 0 0 0-23.647-18.37a24 24 0 0 0-3.166-.212l-.006.018a28.52 28.52 0 0 0-18.252 8.123l-.203.166l-.19.173L218.6 151.925L79.261 18.253S70.995 8.213 62.258 8.006m276.06 51.214q1.115.004 2.22.148a29.3 29.3 0 0 1 17.719 13.81c2.246 5.523 1.554 10.01-6.506 20.484L264.861 196.3l-40.882-39.22l100.68-91.304a21.77 21.77 0 0 1 13.66-6.536zM175.077 201.127L395.19 464.872c4.32 5.408 7.02 10.818 5.18 16.914a20.25 20.25 0 0 1-13.463 14.037a17.6 17.6 0 0 1-5.17.784a19.8 19.8 0 0 1-13.293-5.56l-220.15-209.694c-17.317-17.316-14.698-40.33 2.158-57.186z'/%3E%3C/svg%3E");
+    }
+
+    .btn.huggingface:hover {
+      background-color: #FFD21E;
+      color: #333;
+    }
+
+    .btn.huggingface:hover .huggingface-icon {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378c0 1.112.178 2.181.503 3.185c.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284c.278.173.48.408.71.694c.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542c.01.026.653 1.552 1.657 2.54c.616.605 1.01 1.223 1.082 1.912c.055.537-.096 1.059-.38 1.572c.637.121 1.294.187 1.967.187c.657 0 1.298-.063 1.921-.178c-.287-.517-.44-1.041-.384-1.581c.07-.69.465-1.307 1.081-1.913c1.004-.987 1.647-2.513 1.657-2.539c.021-.074.083-.285.233-.542c.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952c.23-.286.432-.52.71-.694c.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174a1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094c-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71c-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013a1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921a.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92a.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164c1.607-.007 2.984-1.155 3.572-1.164c.196-.003.305.12.305.454c0 .886-.424 2.328-1.563 3.202c-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026l-.01.008l-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116a1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243a1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444c-.034-.016-.104-.008-.2.022q-.094.03-.216.087q-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096a3 3 0 0 0-.26.219a2 2 0 0 0-.12.121a2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203c0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194c-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858s-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64c-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647s2.822 2.813 2.562 3.244s-1.176-.506-1.176-.506s-2.866-2.567-3.49-1.898s.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405c-.238.839-2.71-1.587-3.216-.642c-.506.946 3.49 2.056 3.522 2.064c1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194c1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858s.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64c.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647s-2.822 2.813-2.562 3.244s1.176-.506 1.176-.506s2.866-2.567 3.49-1.898s-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405c.238.839 2.71-1.587 3.216-.642c.506.946-3.49 2.056-3.522 2.064c-1.29.33-4.568 1.028-5.713-.624'/%3E%3C/svg%3E");
+    }
+
+    /* 导航栏调整 */
+    nav {
+      margin-bottom: 2rem;
+    }
+
+    /* 原有样式保持不变 */
+    .demo {
+      margin-bottom: 3rem;
+    }
+
+    .video-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .video-item {
+      flex: 1;
+      min-width: 250px;
+      max-width: 350px;
+      text-align: center;
+    }
+
+    video {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: #2c3e50;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin: 1.5rem 0 0.5rem;
+      color: #34495e;
+    }
+
+    h5 {
+      margin: 0.5rem 0 1rem;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    figure {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    figure img {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    figcaption {
+      margin-top: 0.5rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem 3rem;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: #2c3e50;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 0.5rem;
+    }
+
+    p {
+      line-height: 1.8;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 1.1rem;
+    }
+
+    ul li a {
+      text-decoration: none;
+      color: #f8f8f8;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    ul li a:hover {
+      color: #2980b9;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body>
+  <!-- 标题、作者、单位及按钮区域 -->
+  <section class="header-section">
+    <h1>MultiSoundGen: Video-to-Audio Generation for Multi-Event Scenarios via SlowFast Contrastive Audio-Visual Pretraining and Direct Preference Optimization</h1>
+    <div class="author-list">
+      Jianxuan Yang<sup>1*</sup><sup>†</sup>, Xiaoran Yang<sup>1,2*</sup>, Lipan Zhang<sup>1</sup>, Xinyue Guo<sup>1</sup>, Zhao Wang<sup>1</sup>, Gongping Huang<sup>2</sup>
+    </div>
+    <div class="affiliations">
+      <sup>1</sup>MiLM Plus, Xiaomi Inc., China <br>
+      <sup>2</sup>School of Electronic Information, Wuhan University, Wuhan, China
+    </div>
+    <div class="contribution-note">
+      *Equal contribution, †Corresponding author
+    </div>
+    <div class="btn-group">
+      <a href="https://github.com/V2AResearch/MultiSoundGen" class="btn github" target="_blank">
+        <i class="fab fa-github"></i> Github
+      </a>
+      <a href="https://arxiv.org/abs/2509.19999" class="btn arxiv" target="_blank">
+        <span class="arxiv-icon"></span> arXiv
+      </a>
+      <a href="#" class="btn huggingface" target="_blank">
+        <span class="huggingface-icon"></span> Model
+      </a>
+    </div>
+  </section>
+
   <!-- 导航栏 -->
   <nav>
     <ul>
-      <li><a href="#home">Home</a></li>
       <li><a href="#abstract">Abstract</a></li>
       <li><a href="#samples">Samples</a></li>
+      <li><a href="#acknowledgements">Acknowledgements</a></li>
     </ul>
   </nav>
-
-  <!-- Home 部分 -->
-  <section id="home">
-    <h1>MultiSoundGen: Video-to-Audio Generation for Multi-Event Scenarios via SlowFast Contrastive Audio-Visual Pretraining and Direct Preference Optimization</h1>
-    <p>Welcome to the demo page of MultiSoundGen, a novel V2A model focused on multi-event video-to-audio synthesis.</p>
-  </section>
 
   <!-- Abstract 部分 -->
   <section id="abstract">
     <h2>Abstract</h2>
     <p>
-      Current video-to-audio (V2A) methods struggle in complex multi-event scenarios (video scenarios involving multiple sound sources, sound events, or transitions) due to two critical limitations. First, existing methods face challenges in precisely aligning intricate semantic information together with rapid dynamic features. Second, foundational training lacks quantitative prefer-ence optimization for semantic-temporal alignment and audio quality. As a result, it fails to enhance integrated generation qual-ity in cluttered multi-event scenes. To address these core limitations, this study proposes a novel V2A framework: MultiSoundGen. It introduces direct preference optimization (DPO) into the V2A domain, leveraging audio-visual pretraining (AVP) to enhance performance in complex multi-event scenarios. Our contributions include two key innovations: the first is SlowFast Contrastive AVP (SF-CAVP), a pioneering AVP model with a unified dual-stream architecture. SF-CAVP explicitly aligns core semantic representations and rapid dynamic features of audio-visual data to handle multi-event complexity; second, we integrate the DPO method into V2A task and propose AVP-Ranked Preference Optimization (AVP-RPO). It uses SF-CAVP as a reward model to quantify and prioritize critical semantic-temporal matches while enhancing audio quality. Experiments demonstrate that MultiSoundGen achieves state-of-the-art (SOTA) performance in multi-event scenarios, delivering comprehensive gains across distribution matching, audio quality, semantic alignment, and temporal synchronization.
+      Current video-to-audio (V2A) methods struggle in complex multi-event scenarios (video scenarios involving multiple sound sources, sound events, or transitions) due to two critical limitations. First, existing methods face challenges in precisely aligning intricate semantic information together with rapid dynamic features. Second, foundational training lacks quantitative preference optimization for semantic-temporal alignment and audio quality. As a result, it fails to enhance integrated generation quality in cluttered multi-event scenes. To address these core limitations, this study proposes a novel V2A framework: MultiSoundGen. It introduces direct preference optimization (DPO) into the V2A domain, leveraging audio-visual pretraining (AVP) to enhance performance in complex multi-event scenarios. Our contributions include two key innovations: the first is SlowFast Contrastive AVP (SF-CAVP), a pioneering AVP model with a unified dual-stream architecture. SF-CAVP explicitly aligns core semantic representations and rapid dynamic features of audio-visual data to handle multi-event complexity; second, we integrate the DPO method into V2A task and propose AVP-Ranked Preference Optimization (AVP-RPO). It uses SF-CAVP as a reward model to quantify and prioritize critical semantic-temporal matches while enhancing audio quality. Experiments demonstrate that MultiSoundGen achieves state-of-the-art (SOTA) performance in multi-event scenarios, delivering comprehensive gains across distribution matching, audio quality, semantic alignment, and temporal synchronization.
     </p>
     <figure>
       <img src="abstract.jpg" alt="Abstract Figure">
@@ -38,101 +298,315 @@
 
   <!-- Samples 部分 -->
   <section id="samples">
-    <h2>Samples for multi-event V2A</h2>
+    <h2>Samples</h2>
 
-    <!-- Demo 1 -->
-    <div class="demo">
-      <h3>Demo 1: Movie scene—an Intense motorcycle chase</h3>
-      <div class="video-group">
-        <div class="video-item">
-          <h4>Ground Truth</h4>
-          <video controls>
-            <source src="videos/demo1_GT.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+    <!-- Samples for multi-event V2A -->
+    <div>
+      <h3>Samples for multi-event V2A</h3>
+
+      <!-- Demo 1 -->
+      <div class="demo">
+        <h4>Demo 1: Movie scene—an Intense motorcycle chase</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Ground Truth</h5>
+            <video controls>
+              <source src="videos/demo1_GT.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>MultiSoundGen</h5>
+            <video controls>
+              <source src="videos/demo1_MultiSoundGen.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>MMAudio</h5>
+            <video controls>
+              <source src="videos/demo1_MMAudio.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>FoleyCrafter</h5>
+            <video controls>
+              <source src="videos/demo1_Folycrafter.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Seeing&Hearing</h5>
+            <video controls>
+              <source src="videos/demo1_Seeing_Hearing.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>V_AURA</h5>
+            <video controls>
+              <source src="videos/demo1_V_AURA.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <h4>MultiSoundGen</h4>
-          <video controls>
-            <source src="videos/demo1_MultiSoundGen.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+      </div>
+
+      <!-- Demo 2 -->
+      <div class="demo">
+        <h4>Demo 2: Unconventional two-person music performance</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Ground Truth</h5>
+            <video controls>
+              <source src="videos/demo2_GT.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>MultiSoundGen</h5>
+            <video controls>
+              <source src="videos/demo2_MultiSoundGen.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <h4>MMAudio</h4>
-          <video controls>
-            <source src="videos/demo1_MMAudio.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <h4>FoleyCrafter</h4>
-          <video controls>
-            <source src="videos/demo1_Folycrafter.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <h4>Seeing&Hearing</h4>
-          <video controls>
-            <source src="videos/demo1_Seeing_Hearing.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <h4>V_AURA</h4>
-          <video controls>
-            <source src="videos/demo1_V_AURA.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+      </div>
+
+      <!-- Demo 3 -->
+      <div class="demo">
+        <h4>Demo 3: Two dogs making different types of barking sounds</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Ground Truth</h5>
+            <video controls>
+              <source src="videos/demo3_GT.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>MultiSoundGen</h5>
+            <video controls>
+              <source src="videos/demo3_MultiSoundGen.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Demo 2 -->
-    <div class="demo">
-      <h3>Demo 2: Unconventional two-person music performance</h3>
-      <div class="video-group">
-        <div class="video-item">
-          <h4>Ground Truth</h4>
-          <video controls>
-            <source src="videos/demo2_GT.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+    <!-- Samples for general scenario V2A -->
+    <div>
+      <h3>Samples for general scenario V2A</h3>
+
+      <!-- Animal 类别 -->
+      <div class="demo">
+        <h4>Animal</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Lion</h5>
+            <video controls>
+              <source src="videos/Animal_NSYSX_7fwag_000030_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Rooster</h5>
+            <video controls>
+              <source src="videos/Animal_K3CenN7d30Y_000030_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Puppy</h5>
+            <video controls>
+              <source src="videos/Animal_3qesirWAGt4_000020_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
-        <div class="video-item">
-          <h4>MultiSoundGen</h4>
-          <video controls>
-            <source src="videos/demo2_MultiSoundGen.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+      </div>
+
+      <!-- Domestic sounds 类别 -->
+      <div class="demo">
+        <h4>Domestic sounds</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Typewriter</h5>
+            <video controls>
+              <source src="videos/Domestic sounds_M0Iwz8p-3XU_000030_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Leaf blower</h5>
+            <video controls>
+              <source src="videos/Domestic sounds_E6Fb7i2rP-Q_000370_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Sewing Machine</h5>
+            <video controls>
+              <source src="videos/Domestic sounds_9PmzQI8ZYpg_000030_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Human sounds 类别 -->
+      <div class="demo">
+        <h4>Human sounds</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Tap dance</h5>
+            <video controls>
+              <source src="videos/Human sounds_2qAlWm3NES8_000034_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Jump Rope</h5>
+            <video controls>
+              <source src="videos/Human sounds_CWi_968aD3M_000017_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Chew</h5>
+            <video controls>
+              <source src="videos/Human sounds_yQa3SuKpfLE_000093_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Music 类别 -->
+      <div class="demo">
+        <h4>Music</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Double Bass</h5>
+            <video controls>
+              <source src="videos/Music_0RZRFj7zDnQ_000030_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Conga Drums</h5>
+            <video controls>
+              <source src="videos/Music_JHL7f0njYzY_000293_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Snare Drum</h5>
+            <video controls>
+              <source src="videos/Music_S8RC6WZFqjk_000072_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Natural sounds 类别 -->
+      <div class="demo">
+        <h4>Natural sounds</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Sea Wave</h5>
+            <video controls>
+              <source src="videos/Natural sounds_2XQzahrQ_tE_000075_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Rain</h5>
+            <video controls>
+              <source src="videos/Natural sounds_2ZUuFcJxl3c_000087_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Fire</h5>
+            <video controls>
+              <source src="videos/Natural sounds_R2LpN5yc8DA_000271_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools 类别 -->
+      <div class="demo">
+        <h4>Tools</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Chop</h5>
+            <video controls>
+              <source src="videos/Tools_Pv6BhKDXpHE_000026_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Woodturn</h5>
+            <video controls>
+              <source src="videos/Tools_2qHRJAQDCDo_000095_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Sharpen</h5>
+            <video controls>
+              <source src="videos/Tools_LpaMZAVe9Cg_000116_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vehicle 类别 -->
+      <div class="demo">
+        <h4>Vehicle</h4>
+        <div class="video-group">
+          <div class="video-item">
+            <h5>Helicopter</h5>
+            <video controls>
+              <source src="videos/Vehicle_-yicwYUKKuo_000304_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Car</h5>
+            <video controls>
+              <source src="videos/Vehicle_QJDLZ53UsLk_000320_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+          <div class="video-item">
+            <h5>Railway</h5>
+            <video controls>
+              <source src="videos/Vehicle_-2-wdcN5vOw_000017_MSG.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
         </div>
       </div>
     </div>
-
-    <!-- Demo 3 -->
-    <div class="demo">
-      <h3>Demo 3: Two dogs making different types of barking sounds</h3>
-      <div class="video-group">
-        <div class="video-item">
-          <h4>Ground Truth</h4>
-          <video controls>
-            <source src="videos/demo3_GT.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-        <div class="video-item">
-          <h4>MultiSoundGen</h4>
-          <video controls>
-            <source src="videos/demo3_MultiSoundGen.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        </div>
-      </div>
-    </div>
-
-    <p class="disclaimer">This is an research demonstration for academic purposes only</p>
   </section>
+
+  <!-- Acknowledgements 部分 -->
+  <section id="acknowledgements">
+    <h2>Acknowledgements</h2>
+    <div class="demo">
+      <p>Most videos used in this demo page are from <a href="https://github.com/hche11/VGGSound" target="_blank" rel="noopener noreferrer">VGGSound</a> dataset.</p>
+      <p>Some videos are downloaded from the internet. These videos are used solely for demonstration purposes and we do not claim any copyright. If any content infringes upon your rights, please contact us and we will remove it immediately.</p>
+    </div>
+  </section>
+
 </body>
 
 </html>
