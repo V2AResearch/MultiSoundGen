@@ -11,6 +11,7 @@
   <br>
   <strong>MultiSoundGen</strong>: a novel V2A framework for multi-event scenarios.
 </p>
+
 ---
 
 **MultiSoundGen** introduces direct preference optimization (DPO) into the Video-to-Audio (V2A) domain, leveraging audio-visual pretraining (AVP) to enhance performance in complex multi-event scenarios.
