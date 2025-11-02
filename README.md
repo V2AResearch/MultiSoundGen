@@ -1,15 +1,9 @@
 # MultiSoundGen
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2509.19999">
-    <img src="https://img.shields.io/badge/arXiv-2509.19999-b31b1b.svg" alt="arXiv"/>
-  </a>
-  &nbsp;
-  <a href="https://v2aresearch.github.io/MultiSoundGen/">
-    <img src="https://img.shields.io/badge/Demo Page-🌐-blue" alt="Demo"/>
-  </a>
+  <a href="https://arxiv.org/abs/2509.19999"><img src="https://img.shields.io/badge/arXiv-2509.19999-b31b1b.svg" alt="arXiv"/></a>&nbsp;<a href="https://v2aresearch.github.io/MultiSoundGen/"><img src="https://img.shields.io/badge/Demo Page-🌐-blue" alt="Demo"/></a>
   <br>
-  <strong>MultiSoundGen</strong>: a novel V2A framework for multi-event scenarios.
+  <strong>MultiSoundGen</strong>: a novel V2A framework for multi-event scenarios
 </p>
 
 ---
