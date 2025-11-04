@@ -183,6 +183,12 @@ video:hover {
   padding: 0 1rem;
 }
 
+/* 仅调整Demo1结果分析图的尺寸 */
+figure.demo1-analysis img {
+  max-width: 60%; /* 可根据需要调整，比其他图小一些 */
+  height: auto;
+}
+
 /* 响应式调整 - 小屏幕适配 */
 @media (max-width: 768px) {
   #home h1 {

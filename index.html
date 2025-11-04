@@ -291,7 +291,7 @@
       Current video-to-audio (V2A) methods struggle in complex multi-event scenarios (video scenarios involving multiple sound sources, sound events, or transitions) due to two critical limitations. First, existing methods face challenges in precisely aligning intricate semantic information together with rapid dynamic features. Second, foundational training lacks quantitative preference optimization for semantic-temporal alignment and audio quality. As a result, it fails to enhance integrated generation quality in cluttered multi-event scenes. To address these core limitations, this study proposes a novel V2A framework: MultiSoundGen. It introduces direct preference optimization (DPO) into the V2A domain, leveraging audio-visual pretraining (AVP) to enhance performance in complex multi-event scenarios. Our contributions include two key innovations: the first is SlowFast Contrastive AVP (SF-CAVP), a pioneering AVP model with a unified dual-stream architecture. SF-CAVP explicitly aligns core semantic representations and rapid dynamic features of audio-visual data to handle multi-event complexity; second, we integrate the DPO method into V2A task and propose AVP-Ranked Preference Optimization (AVP-RPO). It uses SF-CAVP as a reward model to quantify and prioritize critical semantic-temporal matches while enhancing audio quality. Experiments demonstrate that MultiSoundGen achieves state-of-the-art (SOTA) performance in multi-event scenarios, delivering comprehensive gains across distribution matching, audio quality, semantic alignment, and temporal synchronization.
     </p>
     <figure>
-      <img src="abstract.jpg" alt="Abstract Figure">
+      <img src="Figs/abstract.jpg" alt="Abstract Figure">
       <figcaption>MultiSoundGen: a novel V2A framework for multi-event scenarios.</figcaption>
     </figure>
   </section>
@@ -352,6 +352,13 @@
           </div>
         </div>
       </div>
+      
+          <!-- 添加结果分析图及说明文字 -->
+      <figure class="demo1-analysis" style="margin-top: 2rem;">
+        <img src="Figs/result_comparison.jpg" alt="Comparison of V2A results for Demo 1">
+        <figcaption>Comparison of V2A results. MultiSoundGen achieves best audio-visual alignment.</figcaption>
+      </figure>
+    </div>
 
       <!-- Demo 2 -->
       <div class="demo">
