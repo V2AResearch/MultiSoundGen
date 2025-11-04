@@ -1,4 +1,4 @@
-/* 基础样式重置 */
+/* Basic style reset */
 * {
   margin: 0;
   padding: 0;
@@ -9,10 +9,10 @@ body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
   color: #333;
-  padding-top: 60px; /* 为固定导航栏预留空间 */
+  padding-top: 60px; /* Reserve space for fixed navigation bar */
 }
 
-/* 导航栏样式 */
+/* Navigation bar style */
 nav {
   position: fixed;
   top: 0;
@@ -40,7 +40,7 @@ nav a:hover {
   color: #4CAF50;
 }
 
-/* 通用section样式 */
+/* General section style */
 section {
   max-width: 1200px;
   margin: 0 auto;
@@ -81,7 +81,7 @@ section p {
   font-size: 1.1rem;
 }
 
-/* Home部分样式 */
+/* Home section style */
 #home {
   text-align: center;
   padding: 5rem 2rem;
@@ -94,7 +94,7 @@ section p {
   line-height: 1.4;
 }
 
-/* Abstract部分样式 */
+/* Abstract section style */
 #abstract {
   background-color: white;
 }
@@ -123,7 +123,7 @@ section p {
   color: #666;
 }
 
-/* Samples部分样式 */
+/* Samples section style */
 #samples {
   background-color: #f8f9fa;
   padding-bottom: 5rem;
@@ -143,29 +143,29 @@ section p {
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* 视频组布局 - 确保同一行视频数量自适应 */
+/* Video group layout - Ensure adaptive number of videos per row */
 .video-group {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 最小列宽300px */
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Minimum column width 300px */
   gap: 2rem;
   margin-top: 1rem;
-  justify-items: center; /* 视频容器在网格中居中 */
+  justify-items: center; /* Center video containers in grid */
 }
 
-/* 视频容器 - 强制统一尺寸 */
+/* Video container - Force uniform size */
 .video-item {
   text-align: center;
-  width: 300px; /* 固定宽度 */
-  height: 220px; /* 固定高度（含标题空间） */
+  width: 300px; /* Fixed width */
+  height: 220px; /* Fixed height (including title space) */
   padding: 0.5rem;
 }
 
-/* 视频标签 - 统一显示尺寸 */
+/* Video tag - Uniform display size */
 video {
   width: 100%;
-  height: 180px; /* 固定视频播放区域高度 */
-  object-fit: cover; /* 保持比例填充容器（溢出部分裁剪） */
-  /* 若希望完整显示视频（可能留黑边），可替换为：object-fit: contain; */
+  height: 180px; /* Fixed video playback area height */
+  object-fit: cover; /* Maintain aspect ratio and fill container (crop overflow) */
+  /* To display the entire video completely (may leave black bars), replace with: object-fit: contain; */
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   transition: box-shadow 0.3s;
@@ -183,13 +183,13 @@ video:hover {
   padding: 0 1rem;
 }
 
-/* 仅调整Demo1结果分析图的尺寸 */
+/* Adjust only the size of Demo1 result analysis image */
 figure.demo1-analysis img {
-  max-width: 60%; /* 可根据需要调整，比其他图小一些 */
+  max-width: 60%; /* Adjustable as needed, slightly smaller than other images */
   height: auto;
 }
 
-/* 响应式调整 - 小屏幕适配 */
+/* Responsive adjustment - Small screen adaptation */
 @media (max-width: 768px) {
   #home h1 {
     font-size: 1.5rem;
@@ -200,16 +200,16 @@ figure.demo1-analysis img {
   }
   
   .video-group {
-    grid-template-columns: 1fr; /* 单列显示 */
+    grid-template-columns: 1fr; /* Single column display */
   }
   
   .video-item {
-    width: 260px; /* 小屏幕缩小容器宽度 */
+    width: 260px; /* Reduce container width on small screens */
     height: 200px;
   }
   
   video {
-    height: 160px; /* 小屏幕缩小视频高度 */
+    height: 160px; /* Reduce video height on small screens */
   }
   
   section {
